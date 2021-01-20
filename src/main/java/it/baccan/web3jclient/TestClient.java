@@ -27,11 +27,19 @@ public class TestClient {
 
     private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger(TestClient.class.getName());
 
+    /**
+     *
+     * @param argv
+     */
     static public void main(String[] argv) {
+        log.info("INI");
+        
+        // Test connection with a local node
         String network = "http://localhost:8545/";
         Web3j web3 = Web3j.build(new HttpService(network));  // defaults to http://localhost:8545/
         Web3ClientVersion web3ClientVersion;
         try {
+            log.info("Try to connect with a local node");
             web3ClientVersion = web3.web3ClientVersion().send();
             String clientVersion = web3ClientVersion.getWeb3ClientVersion();
             log.info(clientVersion);
@@ -41,15 +49,15 @@ public class TestClient {
 
         Credentials credentials = null;
         try {
+            log.info("Load credentias");
             // https://ropsten.etherscan.io/address/0xf2a4b44365b640585160782690f88677e4757bc2
             credentials = WalletUtils.loadCredentials("password", "UTC--2018-04-07T13-29-19.241613200Z--f2a4b44365b640585160782690f88677e4757bc2.json");
-        } catch (IOException ex) {
-            log.log(Level.SEVERE, null, ex);
-        } catch (CipherException ex) {
+        } catch (IOException | CipherException ex) {
             log.log(Level.SEVERE, null, ex);
         }
 
         try {
+            log.info("Transfer funds");
             TransactionReceipt transactionReceipt = Transfer.sendFunds(
                     web3,
                     credentials,
@@ -60,6 +68,8 @@ public class TestClient {
             log.info(transactionReceipt.toString());
         } catch (InterruptedException ex) {
             log.log(Level.SEVERE, null, ex);
+            // Restore interrupted state...
+            Thread.currentThread().interrupt();
         } catch (IOException ex) {
             log.log(Level.SEVERE, null, ex);
         } catch (TransactionException ex) {
@@ -68,5 +78,6 @@ public class TestClient {
             log.log(Level.SEVERE, null, ex);
         }
 
+        log.info("END");
     }
 }
