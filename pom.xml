@@ -42,12 +42,6 @@
             <artifactId>kotlin-stdlib</artifactId>
             <version>1.6.20-RC</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15on</artifactId>
-            <version>1.70</version>
-        </dependency>        
         <!-- FIX org.web3j -->
     </dependencies>
 </project>
