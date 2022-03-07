@@ -34,8 +34,8 @@ public class TestClient {
     static public void main(String[] argv) {
         log.info("INI");
         
-        // Test connection with a local node
-        String network = "http://localhost:8545/";
+        // Test connection with a infuria node
+        String network = "https://ropsten.infura.io/v3/02f814448f5c44428b7eb0ee5f1236a9";
         Web3j web3 = Web3j.build(new HttpService(network));  // defaults to http://localhost:8545/
         Web3ClientVersion web3ClientVersion;
         try {
@@ -79,5 +79,6 @@ public class TestClient {
         }
 
         log.info("END");
+        System.exit(0);
     }
 }
